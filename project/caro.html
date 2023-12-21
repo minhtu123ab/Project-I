@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./caro.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="https://play-lh.googleusercontent.com/7fsK1xkoik5zMUVD13NXpb4-adz-3P5Zd3k827sMNHPv3UKxKOlM0JDiSaHqQGsJ4A=w240-h480-rw" type="image/x-icon">
+    <link rel="shortcut icon" href="https://play-lh.googleusercontent.com/7fsK1xkoik5zMUVD13NXpb4-adz-3P5Zd3k827sMNHPv3UKxKOlM0JDiSaHqQGsJ4A=w240-h480-rw" type="image/x-icon">
+    <title>Game Caro</title>
+</head>
+<body>
+    <div id="body-1">
+        <h1 class="heading">Game Cờ Caro</h1>
+        <button id="play">Chơi Ngay</button>
+        <button id="instruct">Hướng dẫn</button>
+    </div>
+    <div id="instruct-all">
+        <div class="thongbao-instruct">
+            <button id="close"></button>
+            <h2>Hướng dẫn chơi cờ caro</h2>
+            <ol>
+                <li>
+                  <strong>Bảng Cờ:</strong>
+                  <ul>
+                    <li>Bảng cờ là một bảng vuông có kích thước 15x15 ô.</li>
+                    <li>Các ô trên bảng cờ được đánh số hàng dọc và cột ngang để dễ dàng xác định vị trí.</li>
+                  </ul>
+                </li>
+              
+                <li>
+                  <strong>Quân Cờ:</strong>
+                  <ul>
+                    <li>Hai người chơi sẽ sử dụng hai loại quân cờ khác nhau, thường được ký hiệu là "X" và "O".</li>
+                    <li>Người chơi sẽ lần lượt đặt quân cờ của mình vào các ô trống trên bảng cờ.</li>
+                  </ul>
+                </li>
+              
+                <li>
+                  <strong>Luật Đặt Cờ:</strong>
+                  <ul>
+                    <li>Mỗi nước đi, người chơi chọn một ô trống trên bảng và đặt quân cờ của mình vào đó.</li>
+                    <li>Quân cờ đã đặt không thể di chuyển hoặc bị loại khỏi bảng.</li>
+                    <li>Các quân cờ đã được đánh vào ô không thể bị quân cờ khác đánh chèn lên.</li>
+                  </ul>
+                </li>
+              
+                <li>
+                  <strong>Mục Tiêu:</strong>
+                  <ul>
+                    <li>Mục tiêu của mỗi người chơi là tạo thành một dãy liên tiếp gồm 5 quân cờ của mình theo chiều dọc, ngang hoặc chéo trên bảng cờ.</li>
+                    <li>Người chơi đầu tiên tạo ra một dãy 5 quân cờ như vậy sẽ chiến thắng.</li>
+                  </ul>
+                </li>
+              
+                <li>
+                  <strong>Hòa:</strong>
+                  <ul>
+                    <li>Nếu bảng cờ đã được điền hết mà không có ai thắng, trò chơi kết thúc hòa.</li>
+                  </ul>
+                </li>
+              
+              
+                <li>
+                  <strong>Kết quả:</strong>
+                  <ul>
+                    <li>Người chiến thắng sẽ được cộng thêm 1 điểm vào bảng tỉ số</li>
+                  </ul>
+                </li>
+
+                <li>
+                  <strong>Reset Game:</strong>
+                  <ul>
+                    <li>Khi bạn click vào nút reset game sẽ hiện nên thông báo đồng ý hay không, nếu bạn đồng ý trò chơi sẽ quay lại từ đầu.</li>
+                  </ul>
+                </li>
+              
+              </ol>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="overlay-reset" id="overlay">
+        <div class="modal modal-reset">
+          <p>Bạn có đồng ý reset không?</p>
+          <button id="agreeBtn">Có</button>
+          <button id="disagreeBtn">Không</button>
+        </div>
+    </div>
+    <div class="overlay-XO-cls" id="overlay-X">
+        <div class="modal modal-XO">
+          <p>Player 1 win</p>
+          <p>Nhấn Enter để chơi lại.</p>
+          <button id="WinX">Enter</button>
+        </div>
+    </div>
+    <div class="overlay-XO-cls" id="overlay-O">
+        <div class="modal modal-XO">
+          <p>Player 2 win</p>
+          <p>Nhấn Enter để chơi lại.</p>
+          <button id="WinO">Enter</button>
+        </div>
+    </div>
+    <div class="no-click" id="no-click-id">
+        <div class="modal modal-no-click">
+          <p>Bạn không thể đánh vào ô này.</p>
+        </div>
+    </div>
+    <div id="body-2">
+        <h1 class="heading">Game Cờ Caro</h1>
+        <div class="cover-table">
+            <div class="player">
+                <img src="https://antimatter.vn/wp-content/uploads/2022/03/anh-avatar-doi-anime-ngau-chat-nu-600x600.jpg" alt="">
+                <div class="name-item">
+                    <h2 class="player-1">Player 1</h2>
+                    <span class="item item-x">X</span>
+                </div>
+                <span class="tiso" id="countX">0</span>
+                <button class="btn back" id="back-login">Back</button>
+            </div>
+    <table id="my-caro">
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="player">
+        <img src="https://antimatter.vn/wp-content/uploads/2022/03/anh-avatar-doi-anime-ngau-chat-nam-600x600.jpg" alt="">
+        <div class="name-item">
+            <h2 class="player-2">Player 2</h2>
+            <span class="item item-o">O</span>
+        </div>
+        <span class="tiso" id="countY">0</span>
+        <button id="resetGame" class="btn reset">Reset Game</button>
+    </div>
+    </div>
+       
+    </div>
+    <script src="./caro.js"></script>
+</body>
+</html>
